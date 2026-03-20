@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Монета с CSS изображением</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            background: rgba(0,0,0,0.7);
+            padding: 10px 20px;
+            border-radius: 8px;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+        
+        /* Стили для кастомизации изображения монеты */
+        .coin-image {
+            /* Раскомментируйте нужный вариант: */
+            
+            /* Вариант 1: Градиент */
+            /* background: radial-gradient(circle at 30% 30%, gold, #ffd700, #b8860b); */
+            
+            /* Вариант 2: Картинка по URL */
+            background: url('./XXX.jpg') ;
+            
+            /* center/cover no-repeat */
+            /* Дополнительные стили */
+            border-radius: 0; /* Убираем скругление, так как это для CSS отображения, не для текстуры */
+            width: 1612px;
+            height: 1600px;
+        }
+
+        
+        
+        .coin-texture {
+            width: 512px;
+            height: 512px;
+            display: block;
+        }
+        
+        /* Стили для скрытого элемента */
+        #coin-css-texture {
+            /* Убираем лишние элементы, которые могут мешать */
+            font-size: 0;
+            line-height: 0;
+        }
+        
+        /* Убираем символ доллара и звезды через CSS */
+        #coin-css-texture div {
+            display: none !important; /* Прячем внутренний div с символом */
+        }
+    </style>
+</head>
+<body>
+    <div id="info">3D Монета с CSS-изображением | Вращается</div>
+    <div id="canvas-container"></div>
+
+    <!-- Скрытый элемент для создания CSS-текстуры -->
+    <div style="display: none;">
+        <div id="coin-css-texture" class="coin-image coin-texture">
+            <!-- Убираем содержимое, чтобы не мешало -->
+        </div>
+    </div>
+
+    <!-- Подключаем Three.js и OrbitControls -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        // --- Инициализация сцены ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x111122);
+        
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(3, 1, 5);
+        camera.lookAt(0, 0, 0);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.setPixelRatio(window.devicePixelRatio);
+        
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // --- Управление ---
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 2.0;
+        controls.enableZoom = true;
+        controls.enablePan = false;
+        controls.maxPolarAngle = Math.PI / 2;
+
+        // --- Освещение ---
+        const ambientLight = new THREE.AmbientLight(0x404060);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+        dirLight.position.set(2, 5, 3);
+        dirLight.castShadow = true;
+        dirLight.receiveShadow = true;
+        dirLight.shadow.mapSize.width = 1024;
+        dirLight.shadow.mapSize.height = 1024;
+        scene.add(dirLight);
+
+        // --- Вспомогательные элементы ---
+        const gridHelper = new THREE.GridHelper(10, 20, 0x88aaff, 0x335588);
+        gridHelper.position.y = -0.5;
+        scene.add(gridHelper);
+
+        // --- Функция для создания текстуры из CSS с поддержкой изображений ---
+        async function createCoinTextureFromCSS() {
+            return new Promise((resolve, reject) => {
+                const cssElement = document.getElementById('coin-css-texture');
+                
+                // Получаем все стили элемента
+                const styles = window.getComputedStyle(cssElement);
+                const backgroundImage = styles.backgroundImage;
+                
+                console.log('Background image:', backgroundImage); // Для отладки
+                
+                // Создаем canvas
+                const canvas = document.createElement('canvas');
+                canvas.width = 512;
+                canvas.height = 512;
+                const ctx = canvas.getContext('2d');
+                
+                // Проверяем, есть ли изображение в background
+                if (backgroundImage && backgroundImage !== 'none') {
+                    // Извлекаем URL из background-image: url("...")
+                    const urlMatch = backgroundImage.match(/url\(["']?([^"']+)["']?\)/);
+                    
+                    if (urlMatch && urlMatch[1]) {
+                        const imageUrl = urlMatch[1];
+                        console.log('Loading image from:', imageUrl);
+                        
+                        const img = new Image();
+                        // Важно для CORS, если изображение с другого домена
+                        img.crossOrigin = 'Anonymous';
+                        
+                        img.onload = () => {
+                            // Рисуем изображение на canvas
+                            ctx.drawImage(img, 0, 0, 512, 512);
+                            
+                            // Применяем дополнительные CSS эффекты если нужно
+                            // (можно добавить поддержку filter, opacity и т.д.)
+                            
+                            const texture = new THREE.CanvasTexture(canvas);
+                            texture.needsUpdate = true;
+                            resolve(texture);
+                        };
+                        
+                        img.onerror = (err) => {
+                            console.error('Failed to load image:', err);
+                            // В случае ошибки создаем запасной градиент
+                            createFallbackGradient(ctx);
+                            const texture = new THREE.CanvasTexture(canvas);
+                            resolve(texture);
+                        };
+                        
+                        img.src = imageUrl;
+                    } else {
+                        // Если нет URL в background-image, используем цвет фона
+                        ctx.fillStyle = styles.backgroundColor || '#ffd700';
+                        ctx.fillRect(0, 0, 512, 512);
+                        const texture = new THREE.CanvasTexture(canvas);
+                        resolve(texture);
+                    }
+                } else {
+                    // Если нет background-image, используем цвет фона или градиент
+                    createFallbackGradient(ctx);
+                    const texture = new THREE.CanvasTexture(canvas);
+                    resolve(texture);
+                }
+            });
+        }
+        
+        // Запасной градиент на случай ошибки
+        function createFallbackGradient(ctx) {
+            const gradient = ctx.createRadialGradient(256, 256, 50, 256, 256, 256);
+            gradient.addColorStop(0, '#ffd700');
+            gradient.addColorStop(0.5, '#ffb90c');
+            gradient.addColorStop(1, '#b8860b');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 512, 512);
+        }
+
+        // --- Создание монеты (вынесено в отдельную функцию) ---
+        async function createCoin() {
+            // Ждем загрузки текстуры
+            const coinTexture = await createCoinTextureFromCSS();
+            
+            const coinGroup = new THREE.Group();
+
+            // Основное тело монеты
+            const bodyGeometry = new THREE.CylinderGeometry(1.5, 1.5, 0.2, 64);
+            
+            const bodyMaterial = new THREE.MeshStandardMaterial({
+                map: coinTexture,
+                roughness: 0.3,
+                metalness: 0.7,
+                emissive: new THREE.Color(0x221100),
+                emissiveIntensity: 0.2
+            });
+
+            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            body.castShadow = true;
+            body.receiveShadow = true;
+            coinGroup.add(body);
+
+            // Ребро монеты
+            const edgeGeometry = new THREE.TorusGeometry(1.5, 0.1, 32, 100, Math.PI * 2);
+            const edgeMaterial = new THREE.MeshStandardMaterial({
+                color: 0xccaa66,
+                roughness: 0.4,
+                metalness: 0.9
+            });
+            const edge = new THREE.Mesh(edgeGeometry, edgeMaterial);
+            edge.rotation.x = Math.PI / 2;
+            edge.castShadow = true;
+            edge.receiveShadow = true;
+            coinGroup.add(edge);
+
+            // Добавляем второе ребро
+            const edge2Geometry = new THREE.TorusGeometry(1.5, 0.08, 32, 100, Math.PI * 2);
+            const edge2Material = new THREE.MeshStandardMaterial({
+                color: 0xccaa66,
+                roughness: 0.4,
+                metalness: 0.9
+            });
+            
+            const edge2 = new THREE.Mesh(edge2Geometry, edge2Material);
+            edge2.rotation.x = Math.PI / 2;
+            edge2.position.y = 0.1;
+            edge2.castShadow = true;
+            edge2.receiveShadow = true;
+            coinGroup.add(edge2);
+
+            const edge3 = new THREE.Mesh(edge2Geometry, edge2Material);
+            edge3.rotation.x = Math.PI / 2;
+            edge3.position.y = -0.1;
+            edge3.castShadow = true;
+            edge3.receiveShadow = true;
+            coinGroup.add(edge3);
+
+            // Добавляем мелкие детали по краю
+            for (let i = 0; i < 24; i++) {
+                const angle = (i / 24) * Math.PI * 2;
+                const x = Math.cos(angle) * 1.5;
+                const z = Math.sin(angle) * 1.5;
+                
+                const dotGeometry = new THREE.SphereGeometry(0.05, 8);
+                const dotMaterial = new THREE.MeshStandardMaterial({ color: 0xffaa33 });
+                const dot = new THREE.Mesh(dotGeometry, dotMaterial);
+                dot.position.set(x, 0, z);
+                dot.castShadow = true;
+                coinGroup.add(dot);
+            }
+
+            return coinGroup;
+        }
+
+        // --- Инициализация монеты ---
+        let coinGroup;
+        
+        // Создаем монету и добавляем на сцену
+        createCoin().then(coin => {
+            coinGroup = coin;
+            scene.add(coinGroup);
+            
+            // Добавляем плоскость под монетой
+            const planeGeometry = new THREE.CircleGeometry(2.5, 32);
+            const planeMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x1a1a2e, 
+                roughness: 0.8, 
+                metalness: 0.2, 
+                transparent: true, 
+                opacity: 0.3, 
+                side: THREE.DoubleSide 
+            });
+            const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+            plane.rotation.x = -Math.PI / 2;
+            plane.position.y = -0.45;
+            plane.receiveShadow = true;
+            scene.add(plane);
+        });
+
+        // --- Анимация ---
+        let clock = new THREE.Clock();
+
+        function animate() {
+            const delta = clock.getDelta();
+            const elapsedTime = performance.now() / 1000;
+
+            if (coinGroup) {
+                // Небольшая "плавающая" анимация
+                coinGroup.position.y = Math.sin(elapsedTime * 2) * 0.1;
+            }
+
+            controls.update();
+            
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // --- Обработка изменения размера окна ---
+        window.addEventListener('resize', onWindowResize, false);
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+    </script>
+</body>
+</html>
