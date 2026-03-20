@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+
+
+  <title>Экскурсии по Ярославлю</title>
+
+  <style>
+    :root{
+      --paper:#f2eee7;
+      --paper2:#efe7db;
+      --card:#f6f1e8;
+      --ink:#2b2b2b;
+      --muted:#6a6258;
+      --line:#d7cec2;
+
+      --red1:#d95a50;
+      --red2:#b83a31;
+
+      --shadow: 0 12px 26px rgba(0,0,0,.12);
+      --shadow2: 0 18px 40px rgba(0,0,0,.18);
+      --radius: 10px;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family: Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 600px at 20% 0%, rgba(0,0,0,.05), transparent 60%),
+        radial-gradient(900px 500px at 90% 20%, rgba(0,0,0,.04), transparent 60%),
+        linear-gradient(180deg, #f6f2ea, #efe8dc);
+    }
+
+    .container{max-width:1100px;margin:0 auto;width:100%;padding:0 18px}
+
+    /* ===== HERO ===== */
+    header.hero{
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.33) 45%, rgba(0,0,0,.10) 70%, rgba(0,0,0,0) 100%),
+        url("https://psv4.userapi.com/s/v1/d2/Vk6sckD1LeVloXlRwDg1XjYxkWj4OY6xsVGUfcGhxHgc-u_vKJKnL_MoN4MUgc6Sr50iKG7ShLWbutWflIVvo-ejvjIEZpxY9U4khu7tIAyXCngfRYkcGxoiD0BjpGy5UrMAFAOKYSDI/glavnaya.jpg");
+      background-size: cover;
+      background-position: center;
+      color:#fff;
+      min-height: 85vh;
+      display:flex;
+      align-items:center;
+      padding: 64px 0;
+    }
+    .hero-box{
+      max-width: 520px;
+      padding: 12px 0;
+    }
+    .hero-title{
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      line-height: 1.02;
+      font-size: clamp(34px, 5vw, 54px);
+      text-shadow: 0 2px 10px rgba(0,0,0,.45);
+      margin-bottom: 12px;
+    }
+    .hero-divider{
+      width: 210px;
+      height: 3px;
+      background: rgba(255,255,255,.78);
+      border-radius: 999px;
+      box-shadow: 0 1px 10px rgba(0,0,0,.35);
+      margin: 10px 0 12px;
+    }
+    .hero-sub{
+      font-size: 16px;
+      color: rgba(255,255,255,.92);
+      text-shadow: 0 2px 10px rgba(0,0,0,.45);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    /* ===== Buttons (site style) ===== */
+    .btn{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 22px;
+      border-radius: 999px;
+      color:#fff;
+      text-decoration:none;
+      font-weight: 700;
+      font-size: 14px;
+      background: linear-gradient(var(--red1), var(--red2));
+      border: 1px solid rgba(0,0,0,.15);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.35),
+        0 7px 14px rgba(0,0,0,.25);
+      transition: transform .15s ease, filter .15s ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); filter: brightness(1.02)}
+    .btn:active{transform: translateY(0px); filter: brightness(.98)}
+    .btn:focus{outline: none; box-shadow: 0 0 0 3px rgba(217,90,80,.25), inset 0 1px 0 rgba(255,255,255,.35), 0 7px 14px rgba(0,0,0,.25)}
+
+    .paper-wrap{
+      border-top: 1px solid rgba(0,0,0,.08);
+      border-bottom: 1px solid rgba(0,0,0,.08);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.25), rgba(255,255,255,0)),
+        repeating-linear-gradient(0deg, rgba(0,0,0,.03), rgba(0,0,0,.03) 1px, transparent 1px, transparent 18px),
+        linear-gradient(180deg, #f6f2ea, #efe8dc);
+    }
+
+    /* ===== ABOUT ===== */
+    section{padding: 26px 0}
+    .about-title{
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      color: #4b3f34;
+      font-size: 28px;
+      margin: 0 0 10px;
+    }
+
+
+    .about-guide__card{
+  position: relative;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.12);
+  box-shadow: 0 12px 26px rgba(0,0,0,.10);
+  background: rgba(255,255,255,.35);
+  overflow: hidden;              /* ВАЖНО: обрезает фото по рамке */
+  display: grid;
+  grid-template-columns: 1fr 460px; /* правая картинка как в примере */
+  min-height: 160px;             /* чтобы не раздувало блок */
+}
+
+.about-guide__left{
+  padding: 12px 18px;            /* отступы только слева */
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 18px;
+  align-items: center;
+}
+
+.about-guide__right{
+  position: relative;
+  /* никаких padding/margin тут быть НЕ должно */
+}
+
+.about-guide__photo{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;             /* режет, но сохраняет качество */
+}
+
+/* “дымка” слева на правой картинке как в примере */
+.about-guide__fade{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    rgba(246,241,232,1) 0%,
+    rgba(246,241,232,.75) 48%,
+    rgba(246,241,232,.25) 70%,
+    rgba(246,241,232,0) 92%
+  );
+}
+
+/* РАМКА у фото гида — отвечает ВОТ ЭТО */
+.about-guide__avatar{
+  background: #fff;
+  border-radius: 10px;
+  padding: 5px;                  /* “рамка” */
+  border: 1px solid rgba(0,0,0,.10);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 10px 18px rgba(0,0,0,.10);
+}
+
+.about-guide__avatar img{
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.about-guide__btn{
+  margin-top: 14px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.18);
+  background: linear-gradient(#d85245, #c93c2f);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* адаптация */
+@media (max-width: 980px){
+  .about-guide__card{
+    grid-template-columns: 1fr;
+  }
+  .about-guide__right{
+    height: 100px;               /* чтобы справа не “улетало” по высоте */
+  }
+  .about-guide__left{
+    grid-template-columns: 140px 1fr;
+  }
+}
+
+
+    /* разделитель линии как в макете (над/под секциями) */
+    .section-sep{
+      margin: 18px 0 8px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,0,0,.20), transparent);
+    }
+
+    /* ===== POPULAR EXCURSIONS (как в примере) ===== */
+    .section-title-row{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 18px;
+      margin: 10px 0 16px;
+    }
+    .section-title-row:before,
+    .section-title-row:after{
+      content:"";
+      height: 1px;
+      width: clamp(90px, 18vw, 220px);
+      background: linear-gradient(90deg, transparent, rgba(0,0,0,.22), transparent);
+    }
+    .section-title{
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      font-weight: 700;
+      color:#4b3f34;
+      text-align:center;
+      white-space: nowrap;
+    }
+
+    .cards{
+      display:flex;
+      justify-content:center;
+      gap: 26px;           /* расстояние между карточками */
+      flex-wrap: wrap;
+      padding: 8px 0 26px;
+    }
+    .tour-card{
+      width: 320px;        /* размер карточек как на примере */
+      height: 230px;
+      border-radius: 10px;
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.12);
+      box-shadow: var(--shadow);
+      position: relative;
+      background:#ddd;
+      transform: translateZ(0);
+    }
+
+
+    .tour-card{
+  width: 320px;
+  height: 230px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,.12);
+  box-shadow: var(--shadow);
+  position: relative;
+  background: #ddd;
+  transform: translateZ(0);
+}
+
+/* ВАЖНО: фиксируем и width, и height */
+.tour-card img.bg{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* заполняет карточку */
+  object-position: center;   /* центрируем кадр */
+  display: block;
+
+  /* не трогаем резкость фильтрами, пусть будет чисто */
+  image-rendering: auto;
+}
+
+
+
+    /* затемнение сверху под текст */
+    .tour-card .overlay{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.10) 45%, rgba(0,0,0,0) 70%),
+        linear-gradient(0deg, rgba(0,0,0,.18) 0%, rgba(0,0,0,0) 35%);
+      pointer-events:none;
+    }
+    .tour-card .label{
+      position:absolute;
+      top: 14px;
+      left: 16px;
+      right: 16px;
+      color:#fff;
+      text-shadow: 0 2px 10px rgba(0,0,0,.45);
+    }
+    .tour-card .label .h{
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .tour-card .label .s{
+      font-size: 12px;
+      opacity: .92;
+    }
+
+    /* кнопка снизу на карточке (бежевая, как в примере) */
+    .tour-card .more{
+      position:absolute;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 12px;
+      background: linear-gradient(#f6edd8, #e9dcc0);
+      color:#3b352f;
+      border: 1px solid rgba(0,0,0,.16);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.65), 0 8px 18px rgba(0,0,0,.18);
+      cursor:pointer;
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .tour-card .more:hover{transform: translateX(-50%) translateY(-1px); filter: brightness(1.01)}
+    .tour-card .more:active{transform: translateX(-50%) translateY(0px); filter: brightness(.98)}
+    .tour-card .more:focus{outline:none; box-shadow: 0 0 0 3px rgba(233,220,192,.55), inset 0 1px 0 rgba(255,255,255,.65), 0 8px 18px rgba(0,0,0,.18)}
+
+    /* ===== “Все экскурсии” + аккордеон ===== */
+    .all-excursions-wrap{
+      text-align:center;
+      margin-top: -2px;
+      padding: 4px 0 18px;
+    }
+    .btn-all{
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 13px;
+      background: linear-gradient(#f6edd8, #e9dcc0);
+      color:#3b352f;
+      border: 1px solid rgba(0,0,0,.16);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.65), 0 10px 22px rgba(0,0,0,.16);
+      cursor:pointer;
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .btn-all:hover{transform: translateY(-1px); filter: brightness(1.01)}
+    .btn-all:active{transform: translateY(0px); filter: brightness(.98)}
+    .btn-all:focus{outline:none; box-shadow: 0 0 0 3px rgba(233,220,192,.60), inset 0 1px 0 rgba(255,255,255,.65), 0 10px 22px rgba(0,0,0,.16)}
+
+    /* Панель с дополнительными карточками */
+    .accordion{
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height .45s ease, opacity .35s ease;
+      will-change: max-height;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .accordion.open{
+      max-height: 920px; /* достаточно для 3 карточек */
+      opacity: 1;
+      padding-top: 8px;
+      padding-bottom: 26px;
+    }
+
+    /* ===== CONTACT SECTION (карта фоном + блок слева сверху) ===== */
+    .contact-section{
+      position: relative;
+      min-height: 420px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,.12);
+      box-shadow: var(--shadow);
+      margin-bottom: 10px;
+      background: #ddd;
+    }
+
+    .contact-map{
+      position:absolute;
+      inset:0;
+      background:#ddd;
+    }
+    .contact-map > *{
+      width:100% !important;
+      height:100% !important;
+      display:block;
+    }
+
+    .contact-panel{
+      position:absolute;
+      top: 18px;
+      left: 18px;
+      width: min(360px, calc(100% - 36px));
+      border: 1px solid #d9d0c3;
+      border-radius: 12px;
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 18px 40px rgba(0,0,0,.18);
+      padding: 16px;
+      backdrop-filter: blur(3px);
+    }
+
+    .contact-title{
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 30px;
+      font-weight: 700;
+      color:#4b3f34;
+      margin-bottom: 10px;
+    }
+
+    .contact-list{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      color:#4b3f34;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+    .contact-list .row{display:flex;gap:10px;align-items:center}
+
+    .dot{
+      width: 34px;height:34px;border-radius:50%;
+      background: linear-gradient(var(--red1), var(--red2));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 8px 14px rgba(0,0,0,.18);
+      flex: 0 0 34px;
+    }
+
+    /* Mobile: делаем панель не абсолютной, чтобы не перекрывать всё */
+    @media (max-width: 720px){
+      .contact-section{min-height: 520px}
+      .contact-panel{
+        position: relative;
+        top: auto; left: auto;
+        margin: 14px;
+        width: auto;
+      }
+    }
+
+/* ===== MODALS ===== */
+    .modal{
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 9999;
+    }
+    .modal.open{display:flex}
+    .modal .backdrop{
+      position:absolute;
+      inset:0;
+      background: rgba(20,16,12,.62);
+      backdrop-filter: blur(2px);
+    }
+    .modal .panel{
+      position: relative;
+      width: min(720px, 96vw);
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.18);
+      box-shadow: var(--shadow2);
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.25)),
+        radial-gradient(900px 300px at 70% 10%, rgba(255,255,255,.55), rgba(255,255,255,0) 60%),
+        #f3ede3;
+    }
+    .modal .header{
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid rgba(0,0,0,.10);
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .modal .title{
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      font-size: 24px;
+      color:#4b3f34;
+      line-height: 1.1;
+    }
+    .modal .subtitle{
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.35;
+    }
+    .close{
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.15);
+      background: rgba(255,255,255,.6);
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 10px 18px rgba(0,0,0,.12);
+    }
+    .close:hover{filter: brightness(1.02)}
+    .close:active{filter: brightness(.98)}
+    .close:focus{outline:none; box-shadow: 0 0 0 3px rgba(217,90,80,.20), inset 0 1px 0 rgba(255,255,255,.7), 0 10px 18px rgba(0,0,0,.12)}
+    .close svg{width:18px;height:18px;opacity:.8}
+
+    .modal .content{padding: 14px 18px 18px}
+    .modal .footer{
+      padding: 14px 18px 18px;
+      border-top: 1px solid rgba(0,0,0,.10);
+      display:flex;
+      justify-content:flex-end;
+      gap: 10px;
+      background: rgba(255,255,255,.22);
+    }
+
+    /* Booking form */
+    .form-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 12px;
+      margin-top: 10px;
+    }
+    .field{display:flex;flex-direction:column;gap:6px}
+    .field label{
+      font-size: 12px;
+      color:#5a524a;
+      font-weight: 700;
+    }
+    .field input, .field select, .field textarea{
+      width:100%;
+      padding: 11px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,.18);
+      background: rgba(255,255,255,.78);
+      outline:none;
+      font-size: 14px;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus{
+      box-shadow: 0 0 0 3px rgba(217,90,80,.18);
+      border-color: rgba(217,90,80,.45);
+    }
+    .hint{
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+    .full{grid-column: 1 / -1}
+
+    /* Excursion details modal */
+    .exc-img{
+      width:100%;
+      height: 160px; /* “поменьше и меньше в высоту” */
+      overflow:hidden;
+      border-bottom: 1px solid rgba(0,0,0,.10);
+      background:#ddd;
+    }
+    .exc-img img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      transform: scale(1.02);
+      filter: saturate(.98) contrast(.98);
+    }
+    .exc-sect{
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(0,0,0,.18);
+    }
+    .exc-sect h4{
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      color:#4b3f34;
+      margin-bottom: 8px;
+    }
+    .exc-text{
+      font-size: 13px;
+      color:#3b352f;
+      line-height: 1.55;
+    }
+    .route{
+      margin-top: 8px;
+      padding-left: 18px;
+      color:#3b352f;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    footer{
+      padding: 18px 0 26px;
+      text-align:center;
+      color:#6a6258;
+      font-size: 13px;
+      opacity:.9;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 980px){
+      header.hero{min-height: 72vh}
+      .about-grid{grid-template-columns: 170px 1fr; grid-template-rows: auto auto}
+      .side-image{grid-column: 1 / -1; height: 170px}
+      .contact-grid{grid-template-columns: 1fr}
+    }
+    @media (max-width: 720px){
+      .about-grid{grid-template-columns: 1fr}
+      .guide-photo{width: 210px; height: 150px; margin: 0 auto}
+      .hero-box{max-width: 92%}
+      .form-grid{grid-template-columns: 1fr}
+      .tour-card{width: min(360px, 92vw)}
+    }
+  
+    /* ===== FOOTER STYLES ===== */
+    .site-footer{
+      margin-top: 18px;
+      padding: 22px 0 28px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,.10)),
+        linear-gradient(180deg, #efe8dc, #e6ddcf);
+      border-top: 1px solid rgba(0,0,0,.10);
+    }
+
+    .footer-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 18px;
+      flex-wrap:wrap;
+    }
+
+    .footer-brand{min-width: 240px}
+
+    .footer-logo{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      text-decoration:none;
+      color:#4b3f34;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .logo-mark{width:34px;height:34px;filter: drop-shadow(0 6px 10px rgba(0,0,0,.12))}
+    .logo-text{line-height:1.1}
+
+    .footer-note{
+      margin-top: 6px;
+      font-size: 12px;
+      color: #6a6258;
+    }
+
+    .footer-links{
+      display:flex;
+      gap: 14px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .footer-link{
+      font-size: 13px;
+      color:#5f564d;
+      text-decoration:none;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.35);
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .footer-link:hover{transform: translateY(-1px); filter: brightness(1.02)}
+
+    .footer-social{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .social-btn{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      text-decoration:none;
+      font-weight: 700;
+      font-size: 13px;
+      color:#fff;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.14);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 8px 14px rgba(0,0,0,.14);
+      transition: transform .12s ease, filter .12s ease;
+      white-space: nowrap;
+    }
+    .social-btn:hover{transform: translateY(-1px); filter: brightness(1.03)}
+    .social-btn:active{transform: translateY(0px); filter: brightness(.98)}
+    .social-btn svg{width:18px;height:18px;fill:#fff;opacity:.95}
+
+    .social-btn.tg{background: linear-gradient(#4ea9ff, #2a74c8)}
+    .social-btn.wa{background: linear-gradient(#33d17a, #1f9b58)}
+    .social-btn.vk{background: linear-gradient(#5b86ff, #3f5fbf)}
+
+    @media (max-width: 860px){
+      .footer-inner{justify-content:center}
+      .footer-social{justify-content:center}
+    }
+
+    .home-news{
+  margin-top: 26px;
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.40);
+  border: 1px solid rgba(0,0,0,.06);
+}
+
+.hn-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.hn-title{ margin:0; font-size: 26px; letter-spacing:.2px; }
+.hn-sub{ margin:6px 0 0; color: rgba(43,42,40,.65); font-size: 14px; }
+.hn-link{
+  color: var(--accent, #c33a2b);
+  font-weight: 750;
+  text-decoration: none;
+  background: rgba(255,255,255,.55);
+  border: 1px solid rgba(0,0,0,.06);
+  padding: 10px 14px;
+  border-radius: 999px;
+}
+
+.hn-grid{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 14px;
+}
+
+.hn-card{
+  grid-column: span 3;
+  display:grid;
+  grid-template-rows: 150px 1fr;
+  border-radius: 18px;
+  overflow:hidden;
+  text-decoration:none;
+  color: inherit;
+  background: rgba(255,250,242,.85);
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 16px 36px rgba(30,20,10,.08);
+  transition: transform .15s ease, filter .15s ease;
+}
+.hn-card:hover{ transform: translateY(-2px); filter: saturate(1.02); }
+
+.hn-cover{ background:#ddd center/cover no-repeat; }
+.hn-body{ padding: 12px; display:grid; gap: 8px; }
+.hn-meta{ color: rgba(43,42,40,.55); font-size: 12px; }
+.hn-card-title{ font-weight: 850; line-height: 1.2; }
+.hn-excerpt{ color: rgba(43,42,40,.68); font-size: 13px; line-height: 1.55; }
+
+@media (max-width: 1100px){
+  .hn-card{ grid-column: span 6; }
+}
+@media (max-width: 700px){
+  .hn-card{ grid-column: span 12; grid-template-rows: 170px 1fr; }
+}
+
+/* ====== NEWS styles (можно оставить прямо в index.html) ====== */
+  .news-home{ padding: 42px 0 10px; }
+  .news-head{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    gap:16px; margin-bottom: 18px;
+  }
+  .news-title{ margin:0; font-size: 30px; letter-spacing: .2px; }
+  .news-sub{ margin:8px 0 0; color:#6a625a; line-height:1.4; max-width: 760px; }
+  .news-all{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 10px 14px; border-radius: 999px;
+    background: rgba(255,255,255,.55);
+    border: 1px solid rgba(0,0,0,.06);
+    text-decoration:none; color:#2b2a28; font-weight:700;
+    transition: transform .15s ease, background .15s ease;
+    white-space: nowrap;
+  }
+  .news-all:hover{ transform: translateY(-1px); background: rgba(255,255,255,.75); }
+
+  .news-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .news-card{
+    display:flex; flex-direction:column;
+    border-radius: 18px;
+    overflow:hidden;
+    background: rgba(255,255,255,.55);
+    border: 1px solid rgba(0,0,0,.06);
+    box-shadow: 0 12px 22px rgba(30,20,10,.06);
+    text-decoration:none; color:inherit;
+    transition: transform .15s ease, background .15s ease;
+    min-height: 260px;
+  }
+  .news-card:hover{ transform: translateY(-2px); background: rgba(255,255,255,.75); }
+
+  .news-img{
+    height: 140px;
+    background: #ddd center/cover no-repeat;
+    position: relative;
+  }
+  .news-badge{
+    position:absolute; left: 12px; top: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px; font-weight: 800;
+    color:#6b4b1f;
+    background: rgba(202,166,90,.18);
+    border: 1px solid rgba(202,166,90,.32);
+    backdrop-filter: blur(6px);
+  }
+
+  .news-body{ padding: 14px; display:flex; flex-direction:column; gap:10px; flex:1; }
+  .news-meta{ display:flex; gap:10px; align-items:center; color:#6a625a; font-size:12px; }
+  .news-dot{ width:4px; height:4px; border-radius:999px; background:#b9b1a8; display:inline-block; }
+  .news-h3{ margin:0; font-size: 16px; line-height:1.25; letter-spacing: .2px; }
+  .news-text{ margin:0; color:#6a625a; font-size: 13px; line-height:1.4; }
+  .news-foot{ margin-top:auto; display:flex; justify-content:space-between; align-items:center; gap:12px; }
+  .news-link{
+    font-weight: 800;
+    color: #b33b2e; /* под красную кнопку записи */
+    font-size: 13px;
+  }
+  .news-time{ color:#6a625a; font-size:12px; }
+
+  @media (max-width: 1100px){
+    .news-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px){
+    .news-head{ align-items:flex-start; flex-direction:column; }
+    .news-grid{ grid-template-columns: 1fr; }
+    .news-title{ font-size: 26px; }
+  }
+
+  /* ===== News styles (можно оставить прямо в index.html) ===== */
+  .container{
+    width: min(1100px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+  .news-section{
+    padding: 36px 0 10px;
+  }
+  .news-top{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .section-title{
+    margin:0;
+    font-size: 26px;
+    letter-spacing: .2px;
+  }
+  .section-subtitle{
+    margin: 6px 0 0;
+    color: rgba(43,42,40,.68);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .news-all{
+    white-space: nowrap;
+    text-decoration: none;
+    font-weight: 700;
+    color: #5b3a12;
+    background: rgba(202,166,90,.18);
+    border: 1px solid rgba(202,166,90,.30);
+    padding: 10px 14px;
+    border-radius: 999px;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .news-all:hover{ transform: translateY(-1px); background: rgba(202,166,90,.25); }
+
+  .news-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .news-card{
+    display:grid;
+    grid-template-rows: 160px auto;
+    border-radius: 18px;
+    overflow:hidden;
+    text-decoration:none;
+    color: inherit;
+    background: rgba(255,255,255,.62);
+    border: 1px solid rgba(0,0,0,.06);
+    box-shadow: 0 10px 18px rgba(30,20,10,.06);
+    transition: transform .16s ease, background .16s ease, box-shadow .16s ease;
+  }
+  .news-card:hover{
+    transform: translateY(-2px);
+    background: rgba(255,255,255,.78);
+    box-shadow: 0 14px 26px rgba(30,20,10,.10);
+  }
+
+  .news-cover{
+    position:relative;
+    background: #ddd center/cover no-repeat;
+  }
+  .news-cover::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(0,0,0,.00) 20%, rgba(0,0,0,.40) 100%);
+  }
+  .news-badge{
+    position:absolute;
+    left: 12px; top: 12px;
+    z-index: 2;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.85);
+    border: 1px solid rgba(0,0,0,.08);
+  }
+  .news-date{
+    position:absolute;
+    right: 12px; top: 12px;
+    z-index: 2;
+    font-size: 12px;
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.85);
+    border: 1px solid rgba(0,0,0,.08);
+    color: rgba(43,42,40,.75);
+  }
+
+  .news-body{
+    padding: 12px 12px 14px;
+    display:grid;
+    gap: 8px;
+  }
+  .news-title{
+    margin:0;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 900;
+    letter-spacing: .15px;
+  }
+  .news-excerpt{
+    margin:0;
+    font-size: 13px;
+    line-height: 1.45;
+    color: rgba(43,42,40,.72);
+  }
+  .news-footer{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .news-meta{
+    font-size: 12px;
+    color: rgba(43,42,40,.62);
+  }
+  .news-link{
+    font-size: 13px;
+    font-weight: 850;
+    color: #8b5a1c;
+  }
+
+  @media (max-width: 1100px){
+    .news-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 620px){
+    .news-top{ align-items:flex-start; flex-direction: column; }
+    .news-grid{ grid-template-columns: 1fr; }
+  }
+
+  </style>
+</head>
+
+<body>
+
+  <iframe
+  src="header.html"
+  id="siteHeader"
+  scrolling="no"
+  style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    border: 0;
+    z-index: 9999;
+    background: transparent;
+    display: block;
+  ">
+</iframe>
+
+
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="container">
+      <div class="hero-box">
+        <div class="hero-title">Откройте<br>Ярославль<br>вместе со мной!</div>
+        <div class="hero-divider"></div>
+        <div class="hero-sub">Увлекательные экскурсии<br>по древнему городу!</div>
+
+        <!-- Кнопка открывает попап записи -->
+        <button class="btn js-open-booking" data-from="Главная" type="button">
+          Записаться на экскурсию
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="paper-wrap">
+    <div class="container">
+
+      <!-- ABOUT -->
+      <section class="about-guide" id="about">
+  <h2 class="about-title">О гиде</h2>
+
+  <div class="about-guide__card">
+    <div class="about-guide__left">
+      <div class="about-guide__avatar">
+        <img src="images/hero/gid.jpg" alt="Гид Иван">
+      </div>
+
+      <div class="about-guide__text">
+        <b>Меня зовут Иван.</b><br>
+        Я профессиональный гид с многолетним опытом.<br>
+        Люблю Ярославль и знаю его историю и тайны.<br>
+        Приглашаю вас на увлекательные прогулки по нашему прекрасному городу!
+        <button class="about-guide__btn">Записаться на экскурсию</button>
+      </div>
+    </div>
+
+    <div class="about-guide__right">
+      <img class="about-guide__photo" src="images/hero/right-gid.jpg" alt="Ярославль">
+      <span class="about-guide__fade"></span>
+    </div>
+  </div>
+</section>
+
+
+      <!-- POPULAR -->
+      <section id="excursions">
+        <div class="section-title-row" id="tours">
+          <div class="section-title">Популярные экскурсии</div>
+        </div>
+
+        <div class="cards">
+          <!-- Card 1 -->
+          <article class="tour-card">
+            <img class="bg"
+              src="images/tours/obzornaya.jpg"
+              srcset="images/tours/obzornaya.jpg 1x, images/tours/obzornaya@2x.jpg 2x"
+              alt="Обзорная"
+            />
+            <div class="overlay"></div>
+            <div class="label">
+              <div class="h">Обзорная</div>
+              <div class="s">Основные достопримечательности</div>
+            </div>
+            <button class="more js-open-excursion" type="button" data-excursion="old">
+              Подробнее
+            </button>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="tour-card">
+            <img class="bg"
+              src="images/tours/kino.jpg"
+              alt="Кино Ярославль"
+            />
+            <div class="overlay"></div>
+            <div class="label">
+              <div class="h">Кино Ярославль</div>
+              <div class="s">Места съемок фильмов</div>
+            </div>
+            <button class="more js-open-excursion" type="button" data-excursion="volga">
+              Подробнее
+            </button>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="tour-card">
+            <img class="bg"
+              src="images/tours/svyatini.jpg"
+              alt="Ярославль вечерний"
+            />
+            <div class="overlay"></div>
+            <div class="label">
+              <div class="h">Святыни Ярославля</div>
+              <div class="s">Обзорная с посещением храмов</div>
+            </div>
+            <button class="more js-open-excursion" type="button" data-excursion="evening">
+              Подробнее
+            </button>
+          </article>
+        
+        </div>
+
+        <div class="all-excursions-wrap">
+          <button class="btn-all" id="toggleAllExcursions" type="button" aria-expanded="false" aria-controls="moreExcursions">
+            Все экскурсии
+          </button>
+        </div>
+
+        <div class="cards accordion" id="moreExcursions" aria-hidden="true">
+          <!-- Extra Card 4 -->
+          <article class="tour-card">
+            <img class="bg"
+              src="https://sun9-33.userapi.com/s/v1/ig2/y-PT-btYEzUN-_7WDr15G1dZ6bzItMZxHPDWhUGZAEdUhF63bOXMAZGNyqS8tl6QAyzE_7BPS0V45r4Da1pbJv7P.jpg?quality=95&as=32x30,48x44,72x66,108x100,160x148,240x222,360x333,480x443,540x499,640x591,720x665,800x739&from=bu&cs=800x0"
+              alt="Храмы и фрески"
+            />
+            <div class="overlay"></div>
+            <div class="label">
+              <div class="h">Ярославль купеческий</div>
+              <div class="s">История купечества XVII–XX веков</div>
+            </div>
+            <button class="more js-open-excursion" type="button" data-excursion="temples">
+              Подробнее
+            </button>
+          </article>
+
+          <!-- Extra Card 5 -->
+          <article class="tour-card">
+            <img class="bg"
+              src="https://sun9-33.userapi.com/s/v1/ig2/y-PT-btYEzUN-_7WDr15G1dZ6bzItMZxHPDWhUGZAEdUhF63bOXMAZGNyqS8tl6QAyzE_7BPS0V45r4Da1pbJv7P.jpg?quality=95&as=32x30,48x44,72x66,108x100,160x148,240x222,360x333,480x443,540x499,640x591,720x665,800x739&from=bu&cs=800x0"
+              alt="Ярославль гастро"
+            />
+            <div class="overlay"></div>
+            <div class="label">
+              <div class="h">Слово Пацана</div>
+              <div class="s">Места съемок сериала</div>
+            </div>
+            <button class="more js-open-excursion" type="button" data-excursion="gastro">
+              Подробнее
+            </button>
+          </article>
+
+          <!-- Extra Card 6 -->
+          <article class="tour-card">
+            <img class="bg"
+              src="https://sun9-33.userapi.com/s/v1/ig2/y-PT-btYEzUN-_7WDr15G1dZ6bzItMZxHPDWhUGZAEdUhF63bOXMAZGNyqS8tl6QAyzE_7BPS0V45r4Da1pbJv7P.jpg?quality=95&as=32x30,48x44,72x66,108x100,160x148,240x222,360x333,480x443,540x499,640x591,720x665,800x739&from=bu&cs=800x0"
+              alt="Секретные дворики"
+            />
+            <div class="overlay"></div>
+            <div class="label">
+              <div class="h">Красный Перекоп</div>
+              <div class="s">Рабочий район Ярославля</div>
+            </div>
+            <button class="more js-open-excursion" type="button" data-excursion="yards">
+              Подробнее
+            </button>
+          </article>
+        </div>
+
+        <div class="section-sep"></div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <div class="contact-section">
+          <div class="contact-map">
+            <script type="text/javascript" charset="utf-8" async
+              src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A077c4451affe5e7bb200986571a270844620c939a71a3b59846d5cb33eccfa7f&amp;width=745&amp;height=400&amp;lang=ru_RU&amp;scroll=true">
+            </script>
+          </div>
+
+          <div class="contact-panel">
+            <div class="contact-title">Свяжитесь со мной</div>
+            <div class="contact-list">
+              <div class="row"><span class="dot"></span><span>+7 (915) 995-75-86</span></div>
+              <div class="row"><span class="dot"></span><span>Vanoo2005@narod.ru</span></div>
+              <div class="row"><span class="dot"></span><span>Ярославль, Комсомольская улица, 5</span></div>
+            </div>
+
+            <div style="margin-top:14px">
+              <button class="btn js-open-booking" data-from="Связь со мной" type="button">
+                Записаться на экскурсию
+              </button>
+            </div>
+            <div class="hint">Нажмите кнопку — откроется форма записи.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+
+  <!-- ===== Последние новости (вставь под блоком "Свяжитесь со мной") ===== -->
+<section class="news-section" id="latest-news">
+  <div class="container">
+    <div class="news-top">
+      <div>
+        <h2 class="section-title">Последние новости</h2>
+        <p class="section-subtitle">Анонсы, полезные материалы и идеи прогулок по Ярославлю</p>
+      </div>
+      <a class="news-all" href="news.html">Все новости →</a>
+    </div>
+
+    <div class="news-grid" id="latestNewsGrid"></div>
+  </div>
+</section>
+
+
+
+<link rel="stylesheet" href="/css/news.css">
+<script src="/js/news.js"></script>
+<script>
+  renderLatestNews("latestNewsGrid", 4);
+</script>
+
+
+<script src="./news-data.js"></script>
+<script>
+  (function(){
+    const grid = document.getElementById("homeNewsGrid");
+    if(!grid || !window.NEWS) return;
+
+    const esc = (s="") => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+    const list = (window.NewsUtils ? NewsUtils.sortDesc(window.NEWS) : window.NEWS).slice(0,4);
+
+    grid.innerHTML = list.map(n => `
+      <a class="hn-card" href="./news.html#${esc(n.id)}">
+        <div class="hn-cover" style="background-image:url('${esc(n.cover||"")}')"></div>
+        <div class="hn-body">
+          <div class="hn-meta">
+            <span>${esc(window.NewsUtils ? NewsUtils.formatDate(n.date) : n.date)}</span>
+          </div>
+          <div class="hn-card-title">${esc(n.title)}</div>
+          <div class="hn-excerpt">${esc(n.excerpt || "")}</div>
+        </div>
+      </a>
+    `).join("");
+  })();
+</script>
+
+  <!-- =======================
+       BOOKING MODAL
+  ======================== -->
+  <div class="modal" id="bookingModal" aria-hidden="true">
+    <div class="backdrop" data-close="true"></div>
+
+    <div class="panel" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
+      <div class="header">
+        <div>
+          <div class="title" id="bookingTitle">Запись на экскурсию</div>
+          <div class="subtitle" id="bookingSubtitle">Заполните данные — я свяжусь с вами для подтверждения.</div>
+        </div>
+        <button class="close" type="button" data-close="true" aria-label="Закрыть">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="content">
+        <form id="bookingForm">
+          <div class="form-grid">
+            <div class="field">
+              <label>Имя</label>
+              <input name="name" type="text" placeholder="Алексей" required />
+            </div>
+
+            <div class="field">
+              <label>Телефон</label>
+              <input name="phone" type="tel" placeholder="+7 (___) ___-__-__" required />
+            </div>
+
+            <div class="field">
+              <label>Количество людей</label>
+              <select name="people" required>
+                <option value="" disabled selected>Выберите</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option>
+                <option>5</option><option>6</option><option>7</option><option>8+</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Экскурсия</label>
+              <select name="excursion">
+                <option value="Не выбрано">Не выбрано</option>
+                <option value="Старинный Ярославль">Обзорная</option>
+                <option value="Величие на Волге">Кино Ярославль</option>
+                <option value="Ярославль вечерний">Святыни Ярославля</option>
+                              <option value="Храмы и фрески">Ярославль купеческий</option>
+                <option value="Ярославль гастро">Слово Пацана</option>
+                <option value="Секретные дворики">Красный Перекоп</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Дата</label>
+              <!-- Нативный календарь (маленькое окно выбора даты) -->
+              <input name="date" type="date" required />
+            </div>
+
+            <div class="field">
+              <label>Время</label>
+              <input name="time" type="time" required />
+            </div>
+
+            <div class="field full">
+              <label>Комментарий (необязательно)</label>
+              <textarea name="comment" rows="3" placeholder="Например: хотим начать у набережной..."></textarea>
+              <div class="hint" id="bookingSourceHint"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="footer">
+        <button class="btn" type="button" data-close="true" style="background:linear-gradient(#f6edd8,#e9dcc0);color:#3b352f;border:1px solid rgba(0,0,0,.16);box-shadow: inset 0 1px 0 rgba(255,255,255,.65), 0 8px 18px rgba(0,0,0,.18);">
+          Отмена
+        </button>
+        <button class="btn" type="submit" form="bookingForm" id="sendBooking">
+          Отправить
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================
+       EXCURSION MODALS (3 шт)
+  ======================== -->
+  <div class="modal" id="excursionModal" aria-hidden="true">
+    <div class="backdrop" data-close="true"></div>
+
+    <div class="panel" role="dialog" aria-modal="true" aria-labelledby="excTitle">
+      <div class="exc-img">
+        <img id="excImg"
+          src="https://sun9-46.userapi.com/s/v1/ig2/_AVDibBo4O-IOVpgRLoo62U8hEa1zGsMnqToUuy5GyXL3r-MBAKqbdAalwxqNvZi96lndhE3TEESrmdSsJXyXuPX.jpg?quality=95&as=32x19,48x28,72x43,108x64,160x95,240x142,360x213,480x285,540x320,640x379,720x427,1080x640,1280x759,1440x854,1800x1067&from=bu&u=yx5X7dUCwotQduTio4pJUShAFhfIyKBihxXTweLBItk&cs=1800x0"
+          alt=""
+        />
+      </div>
+
+      <div class="header">
+        <div>
+          <div class="title" id="excTitle">Экскурсия</div>
+          <div class="subtitle" id="excSub">Описание и маршрут</div>
+        </div>
+        <button class="close" type="button" data-close="true" aria-label="Закрыть">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="content">
+        <div class="exc-text" id="excDesc"></div>
+
+        <div class="exc-sect">
+          <h4>Чем интересна</h4>
+          <div class="exc-text" id="excWhy"></div>
+        </div>
+
+        <div class="exc-sect">
+          <h4>Маршрут</h4>
+          <ul class="route" id="excRoute"></ul>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button class="btn" type="button" data-close="true" style="background:linear-gradient(#f6edd8,#e9dcc0);color:#3b352f;border:1px solid rgba(0,0,0,.16);box-shadow: inset 0 1px 0 rgba(255,255,255,.65), 0 8px 18px rgba(0,0,0,.18);">
+          Закрыть
+        </button>
+        <button class="btn" type="button" id="excBookBtn">
+          Записаться
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Simple modal helpers =====
+    const bookingModal = document.getElementById('bookingModal');
+    const excursionModal = document.getElementById('excursionModal');
+
+    let lastFocus = null;
+    
+
+    // ===== “Все экскурсии” (аккордеон) =====
+    const toggleAllBtn = document.getElementById('toggleAllExcursions');
+    const moreExcursions = document.getElementById('moreExcursions');
+    if (toggleAllBtn && moreExcursions){
+      toggleAllBtn.addEventListener('click', ()=>{
+        const isOpen = moreExcursions.classList.toggle('open');
+        toggleAllBtn.setAttribute('aria-expanded', String(isOpen));
+        moreExcursions.setAttribute('aria-hidden', String(!isOpen));
+        toggleAllBtn.textContent = isOpen ? "Свернуть экскурсии" : "Все экскурсии";
+      });
+    }
+let currentExcursionName = "Не выбрано";
+
+    function openModal(modal){
+      lastFocus = document.activeElement;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+
+      // focus first focusable
+      const focusable = modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusable) focusable.focus();
+
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modal){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocus) lastFocus.focus();
+    }
+
+    function wireModalClose(modal){
+      // закрытие по клику на элементы с data-close="true" (включая SVG внутри кнопки)
+      modal.addEventListener('click', (e)=>{
+        const closeEl = e.target && e.target.closest ? e.target.closest('[data-close="true"]') : null;
+        if (closeEl && modal.contains(closeEl)) closeModal(modal);
+      });
+      // Esc
+      modal.addEventListener('keydown', (e)=>{
+        if (e.key === 'Escape') closeModal(modal);
+      });
+    }
+
+    wireModalClose(bookingModal);
+    wireModalClose(excursionModal);
+
+    // ===== Booking modal openers =====
+    const bookingSourceHint = document.getElementById('bookingSourceHint');
+    const bookingForm = document.getElementById('bookingForm');
+
+    function setBookingExcursion(name){
+      const sel = bookingForm.querySelector('select[name="excursion"]');
+      if (!sel) return;
+      const match = Array.from(sel.options).find(o => o.value === name);
+      sel.value = match ? name : "Не выбрано";
+      currentExcursionName = sel.value;
+    }
+
+    document.querySelectorAll('.js-open-booking').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const from = btn.dataset.from ? btn.dataset.from : 'Сайт';
+        bookingSourceHint.textContent = `Источник: ${from}` + (currentExcursionName && currentExcursionName !== 'Не выбрано' ? ` • Экскурсия: ${currentExcursionName}` : '');
+        openModal(bookingModal);
+      });
+    });
+
+    // ===== Excursion details data =====
+    const EXCURSIONS = {
+      old: {
+        name: "Обзорная экскурсия",
+        sub: "Основные достопримечательности Ярославля",
+        desc: "Пешая прогулка по историческому центру Ярославля — от древнего Рубленого города до живописной Стрелки. Экскурсия знакомит с главными символами города и его ключевыми эпохами.",
+        why: "Подходит для первого знакомства с Ярославлем. Вы увидите самые известные места, узнаете, как формировался город, почему именно здесь сосредоточено столько памятников, и почувствуете атмосферу старого Ярославля.",
+        route: [
+          "Богоявленская площадь",
+          "Спасо-Преображенский музей-заповедник",
+          "Рубленый город",
+          "Стрелка Волги и Которосли",
+          "Успенский кафедральный собор",
+          "Колокольня",
+          "Обелиск жертвам белогвардейского восстания",
+          "Советская площадь",
+          "Храм Ильи Пророка"
+        ]
+      },
+      volga: {
+        name: "Кино Ярославль",
+        sub: "Места съёмок фильмов",
+        desc: "Ярославль — один из самых кинематографичных городов России. Его улицы не раз «играли» Москву, Петербург и провинциальные города в кино.",
+        why: "Вы узнаете, где снимались фильмы «Большая перемена», «Афоня», «Экипаж», «Женщины», «33», «Кин-дза-дза» и сериал «Слово пацана». Поговорим о ярославских театрах, первых электрокинотеатрах и о том, как на Волге снимали кино ещё в начале XX века.",
+        route: [
+          "Исторические улицы — съёмочные локации",
+          "Места съёмок известных фильмов",
+          "Ярославский театр",
+          "Бывшие электрокинотеатры",
+          "Кинолокации с иллюстрациями",
+          "Финальная точка в центре города"
+        ]
+      },
+      evening: {
+        name: "Святыни Ярославля",
+        sub: "Экскурсия с посещением храмов",
+        desc: "Экскурсия по духовному наследию Ярославля с посещением главных святынь города. История, архитектура и живые традиции православного Ярославля.",
+        why: "Вы не только увидите храмы снаружи, но и зайдёте внутрь, узнаете об их судьбе, святынях и значении для города. Спокойный, вдумчивый маршрут без суеты.",
+        route: [
+          "Храм Спаса на Городу",
+          "Храм Михаила Архангела",
+          "Успенский кафедральный собор (посещение)",
+          "Казанский женский монастырь",
+          "Исторические улицы центра"
+        ]
+      }
+    
+      ,
+      temples: {
+        name: "Ярославль купеческий",
+        sub: "История купечества XVII–XX веков",
+        desc: "Обзорная экскурсия о ярославском купечестве — людях, которые сделали город богатым, влиятельным и красивым.",
+        why: "Вы узнаете, как купцы зарабатывали состояния, во что вкладывались и как повлияли на культуру и экономику региона. Хлебные, картофельные, железные и шоколадные «бароны» Ярославля — с живыми историями и деталями.",
+        route: [
+          "Купеческие усадьбы",
+          "Доходные дома",
+          "Торговые улицы и площади",
+          "Истории купеческих династий",
+          "Исторические кварталы центра"
+        ]
+      },
+      gastro: {
+        name: "Слово пацана",
+        sub: "Места съёмок сериала",
+        desc: "Экскурсия по реальным локациям съёмок сериала «Слово пацана», где Ярославль стал экранным образом другого города и эпохи.",
+        why: "Вы увидите дворы и улицы из сериала, узнаете, как подбирались локации, что меняли для съёмок и как город «перевоплощался» для кадра. Экскурсия о кино и городской среде конца XX века.",
+        route: [
+          "Дворы и улицы съёмок",
+          "Жилые кварталы советского периода",
+          "Места ключевых сцен",
+          "Сравнение экранных кадров и реальности"
+        ]
+      },
+      yards: {
+        name: "Красный Перекоп",
+        sub: "Рабочий район Ярославля",
+        desc: "Экскурсия по одному из самых самобытных районов города — Красному Перекопу. История фабрик, рабочих династий и людей, изменивших страну.",
+        why: "Вы увидите Ярославль вне туристических маршрутов, узнаете о промышленном прошлом района и пройдёте по местам, связанным с Валентиной Терешковой.",
+        route: [
+          "Храм Иоанна Предтечи (изображён на купюре 1000 ₽)",
+          "Петропавловский парк с прудами",
+          "Большая мануфактура",
+          "Общежитие Валентины Терешковой",
+          "Места её работы и учёбы"
+        ]
+      }
+
+    };
+
+    // ===== Excursion modal openers =====
+    const excTitle = document.getElementById('excTitle');
+    const excSub = document.getElementById('excSub');
+    const excDesc = document.getElementById('excDesc');
+    const excWhy = document.getElementById('excWhy');
+    const excRoute = document.getElementById('excRoute');
+
+    document.querySelectorAll('.js-open-excursion').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const key = btn.dataset.excursion;
+        const data = EXCURSIONS[key];
+        if (!data) return;
+
+        excTitle.textContent = data.name;
+        excSub.textContent = data.sub;
+        excDesc.textContent = data.desc;
+        excWhy.textContent = data.why;
+
+        excRoute.innerHTML = "";
+        data.route.forEach(item=>{
+          const li = document.createElement('li');
+          li.textContent = item;
+          excRoute.appendChild(li);
+        });
+
+        // запомним экскурсию — пригодится для записи
+        currentExcursionName = data.name;
+
+        openModal(excursionModal);
+      });
+    });
+
+    // ===== “Записаться” inside excursion modal => open booking modal with selected excursion =====
+    document.getElementById('excBookBtn').addEventListener('click', ()=>{
+      // закрываем details и открываем booking
+      closeModal(excursionModal);
+      setBookingExcursion(currentExcursionName);
+      bookingSourceHint.textContent = `Источник: Попап экскурсии • Экскурсия: ${currentExcursionName}`;
+      openModal(bookingModal);
+    });
+
+    // ===== Booking submit (demo) =====
+    document.getElementById('sendBooking').addEventListener('click', (e)=>{
+      // let form validation run
+      const form = bookingForm;
+      if (!form.checkValidity()) return;
+
+      e.preventDefault();
+      const fd = new FormData(form);
+      const payload = Object.fromEntries(fd.entries());
+
+       
+
+  
+
+      // ДЕМО: замените на fetch() на ваш backend
+      alert(
+        "Заявка отправлена (демо) ✅\n\n" +
+        `Имя: ${payload.name}\n` +
+        `Телефон: ${payload.phone}\n` +
+        `Людей: ${payload.people}\n` +
+        `Экскурсия: ${payload.excursion}\n` +
+        `Дата: ${payload.date}\n` +
+        `Время: ${payload.time}\n`
+      );
+
+      form.reset();
+      setBookingExcursion("Не выбрано");
+      closeModal(bookingModal);
+    });
+
+    // ===== Optional: mask-ish helper for phone (простая) =====
+    const phone = bookingForm.querySelector('input[name="phone"]');
+    if (phone){
+      phone.addEventListener('input', ()=>{
+        // не “жесткая” маска, просто чистим лишнее
+        phone.value = phone.value.replace(/[^\d+\s()-]/g,'');
+      });
+    }
+  </script>
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer" id="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="footer-logo" href="#top" aria-label="На главную">
+          <svg class="logo-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M32 6c10.5 0 19 8.5 19 19 0 15-19 33-19 33S13 40 13 25C13 14.5 21.5 6 32 6Z" fill="#d95a50"/>
+            <circle cx="32" cy="25" r="7" fill="#fff"/>
+          </svg>
+          <span class="logo-text">Экскурсии по Ярославлю</span>
+        </a>
+
+        <div class="footer-note">
+          © <span id="footerYear"></span> • Все права защищены
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a class="footer-link" href="#about">О гиде</a>
+        <a class="footer-link" href="#excursions">Экскурсии</a>
+        <a class="footer-link" href="#contact">Связь</a>
+        <a class="footer-link" href="#map">Карта</a>
+      </div>
+
+      <div class="footer-social">
+        <a class="social-btn tg" href="https://t.me/" target="_blank" rel="noopener" aria-label="Telegram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.8 4.6c.3-1.2-.9-2.2-2-1.8L2.9 9.3c-1.1.4-1.1 2 .1 2.4l4.8 1.6 1.8 5.4c.3.9 1.4 1.2 2.1.6l2.7-2.2 4.7 3.4c.8.6 2 .1 2.2-.9l2.2-14.7ZM8.3 12.7l10.6-6.5-8.3 7.8-.3 3.4-1.3-4-2.9-1 2.2-.7Z"/></svg>
+          <span>Telegram</span>
+        </a>
+
+        <a class="social-btn wa" href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1 3.7 3.8-1A10 10 0 1 0 12 2Zm5.7 14.4c-.2.6-1.2 1.1-1.7 1.1-.5.1-1.1.1-1.8-.1-2-.7-3.7-2.1-5.1-4-.4-.6-1.3-1.8-1.3-3.4 0-1.7.9-2.5 1.2-2.9.3-.3.7-.4 1-.4h.7c.2 0 .5 0 .7.6l.8 2c.1.5.1.6 0 .8l-.3.4c-.1.2-.3.4-.4.5-.1.2-.2.3 0 .6.2.3.9 1.4 1.9 2.2 1.3 1 2.4 1.3 2.7 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.5-.2.8-.1l2 .9c.3.2.6.3.7.5.1.1.1.5 0 1Z"/></svg>
+          <span>WhatsApp</span>
+        </a>
+
+        <a class="social-btn vk" href="https://vk.com/" target="_blank" rel="noopener" aria-label="ВКонтакте">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.9 16.8h1.3s.4 0 .6-.2c.2-.2.2-.5.2-.5s0-1.4.6-2c.6-.6 1.3-.6 1.3-.6s.8.1 2.4 1.1c1.7 1.1 2 1.2 2.4 1.2h1.6s.9-.1.5-1c-.3-.7-1.5-1.9-1.5-1.9s-.8-.8-1.1-1.2c-.7-.8-.5-1.1 0-1.8 0 0 2.7-3.8 3-4.9.3-1-.7-.9-.7-.9h-1.8s-.5-.1-.7.2c-.2.2-.4.6-.4.6s-1 2.6-2.3 4.2c-.4.5-.7.7-1 .6-.5-.2-.4-1.5-.4-2.2 0-2.3.4-3.2-.7-3.5-.4-.1-.7-.2-1.7-.2-1.3 0-2.4 0-3 .3-.4.2-.7.6-.5.6.2 0 .6.1.8.4.3.4.3 1.3.3 1.3s.2 2.7-.4 3.1c-.4.3-.9-.3-1-.5-1.2-1.6-2.2-4.3-2.2-4.3s-.1-.4-.4-.6c-.3-.2-.7-.2-.7-.2H2.6s-.5 0-.7.2c-.2.2 0 .6 0 .6s1.8 4.2 3.8 7.1c1.8 2.7 4.4 4 4.4 4s.3.2.8.2Z"/></svg>
+          <span>VK</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // год в футере
+    (function(){
+      var el = document.getElementById('footerYear');
+      if (el) el.textContent = new Date().getFullYear();
+    })();
+  </script>
+
+<script>
+  // ===== Данные новостей (4 штуки) =====
+  const NEWS = [
+    {
+      id: "new-year-center",
+      title: "Новогодний центр Ярославля: где красивее всего гулять вечером",
+      excerpt: "Собрал маршрут по огонькам: Стрелка, набережная и лучшие точки для фото. Плюс — что посмотреть рядом.",
+      date: "31.12.2025",
+      tag: "Маршрут",
+      readTime: "6 мин",
+      image: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=1600&q=70",
+      url: "news-new-year-center.html"
+    },
+    {
+      id: "red-perekop",
+      title: "Красный Перекоп: промышленная история и неожиданная красота района",
+      excerpt: "Петропавловский парк с прудами, мануфактура и места Терешковой — почему это must-see вне центра.",
+      date: "28.12.2025",
+      tag: "Район",
+      readTime: "7 мин",
+      image: "https://images.unsplash.com/photo-1523413452443-30d0e2c1d0b1?auto=format&fit=crop&w=1600&q=70",
+      url: "news-red-perekop.html"
+    },
+    {
+      id: "cinema",
+      title: "КиноЯрославль: 5 локаций, где снимали культовые фильмы",
+      excerpt: "«Афоня», «Большая перемена», «Экипаж» — покажу места, где кино становится реальностью.",
+      date: "24.12.2025",
+      tag: "Кино",
+      readTime: "5 мин",
+      image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1600&q=70",
+      url: "news-cinema.html"
+    },
+    {
+      id: "tips",
+      title: "Как выбрать экскурсию в Ярославле: 7 простых подсказок",
+      excerpt: "На что смотреть кроме цены: темп, маршрут, сезон, дети, интересы группы и формат общения.",
+      date: "20.12.2025",
+      tag: "Советы",
+      readTime: "4 мин",
+      image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=70",
+      url: "news-tips.html"
+    }
+  ];
+
+  // ===== Рендер 4 карточек =====
+  (function renderLatest(){
+    const grid = document.getElementById("latestNewsGrid");
+    if(!grid) return;
+
+    const html = NEWS.slice(0,4).map(n => `
+      <a class="news-card" href="${n.url}">
+        <div class="news-cover" style="background-image:url('${n.image}')">
+          <div class="news-badge">${n.tag}</div>
+          <div class="news-date">${n.date}</div>
+        </div>
+        <div class="news-body">
+          <h3 class="news-title">${n.title}</h3>
+          <p class="news-excerpt">${n.excerpt}</p>
+          <div class="news-footer">
+            <div class="news-meta">${n.readTime}</div>
+            <div class="news-link">Читать →</div>
+          </div>
+        </div>
+      </a>
+    `).join("");
+
+    grid.innerHTML = html;
+  })();
+</script>
+
+<script>
+  (function(){
+    // чтобы якоря работали, когда хедер в iframe
+    function scrollToId(id){
+      var el = document.getElementById(id);
+      if(!el) return;
+
+      // высота твоего iframe-хедера (у тебя 90px)
+      var HEADER_H = 90;
+      var top = el.getBoundingClientRect().top + window.pageYOffset - (HEADER_H + 18);
+
+      window.scrollTo({ top: top, behavior: "smooth" });
+    }
+
+    window.addEventListener("message", function(event){
+      var data = event.data || {};
+      if(data.type === "scrollTo" && data.id){
+        scrollToId(String(data.id));
+      }
+      if(data.type === "scrollTop"){
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    });
+
+    // если зашли на index.html#contact — тоже красиво проскроллим
+    window.addEventListener("load", function(){
+      if(location.hash && location.hash.length > 1){
+        var id = decodeURIComponent(location.hash.slice(1));
+        setTimeout(function(){ scrollToId(id); }, 50);
+      }
+    });
+  })();
+</script>
+
+
+</body>
+</html>

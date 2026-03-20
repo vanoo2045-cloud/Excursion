@@ -1,0 +1,286 @@
+<header class="site-header">
+  <style>
+    :root{
+      --h-bg: rgba(255,255,255,65);
+      --h-border: rgba(0,0,0,08);
+      --h-text: #2b2a28;
+      --h-muted: rgba(43,42,40,65);
+      --h-shadow: 0 16px 32px rgba(30,20,10,12);
+    }
+
+    .site-header{
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 14px 0;
+      background: transparent;
+      backdrop-filter: none;
+      margin: 0;
+    }
+
+    .header-inner{
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 10px 16px;
+
+      /* iOS glass */
+      background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.65),
+        rgba(255,255,255,0.45)
+      );
+       backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  box-shadow:
+    0 16px 32px rgba(30,20,10,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+  border-radius: 999px;;
+
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 16px;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+
+    /* бренд */
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--h-text);
+      min-width: 0;
+      cursor: pointer;
+    }
+
+    .brand-logo{
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: rgba(255,255,255,8);
+      
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: #1f1a10;
+    
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .brand-text{
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+      min-width: 0;
+    }
+
+    .brand-title{
+      font-weight: 800;
+      letter-spacing: .2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-sub{
+      font-size: 12px;
+      color: var(--h-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* навигация */
+    .nav{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,6);
+     
+
+    }
+
+    .nav a{
+  position: relative;
+  text-decoration: none;
+  color: var(--h-text);
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 999px;
+  transition:
+    background .15s ease,
+    transform .15s ease,
+    box-shadow .15s ease;
+}
+
+/* НАВЕДЕНИЕ */
+.nav a:hover{
+  background: rgba(255,255,255,.75);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.9),
+    0 6px 14px rgba(0,0,0,.12);
+  transform: translateY(-1px);
+}
+
+/* НАЖАТИЕ */
+.nav a:active{
+  transform: translateY(0);
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,.18);
+}
+
+    /* кнопка */
+    .cta{
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14px;
+      color: #2b2a28;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #e2c07a, #cda85f);
+      
+      box-shadow: 0 10px 18px rgba(202,166,90,35);
+      white-space: nowrap;
+      transition: transform .15s ease, filter .15s ease;
+      cursor: pointer;
+    }
+
+    .cta:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+    }
+
+    /* адаптив */
+    @media (max-width: 900px){
+      .header-inner{
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        border-radius: 24px;
+      }
+
+      .nav{
+        display: none;
+      }
+    }
+
+    @media (max-width: 520px){
+      .brand-logo{
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+      }
+
+      .brand-sub{
+        display: none;
+      }
+
+      .cta{
+        padding: 10px 14px;
+        font-size: 13px;
+      }
+    }
+  </style>
+
+  <div class="header-inner">
+    <!-- ВАЖНО: бренд не должен быть обычной ссылкой в iframe -->
+    <a href="#" class="brand" data-go="home">
+      <div class="brand-logo">Я</div>
+      <div class="brand-text">
+        <div class="brand-title">Экскурсии по Ярославлю</div>
+        <div class="brand-sub">истории, маршруты, кино и купечество</div>
+      </div>
+    </a>
+
+    <!-- ВАЖНО: секции делаем #... (будет скроллить родитель) -->
+    <nav class="nav">
+      <a href="#tours" data-scroll="tours">Экскурсии</a>
+      <a href="news.html" data-page="news.html">Новости</a>
+      <a href="#about" data-scroll="about">О гиде</a>
+      <a href="#contact" data-scroll="contact">Контакты</a>
+    </nav>
+
+    <!-- кнопка: либо скролл к контактам, либо открыть модалку -->
+    <a href="#contact" class="cta" data-scroll="contact">Записаться</a>
+  </div>
+
+  <script>
+    // ===== helpers =====
+    function safeParentHrefSet(url){
+      try { parent.location.href = url; }
+      catch(e){ window.top.location.href = url; }
+    }
+
+    function onIndex(){
+      try{
+        const p = parent.location.pathname || "";
+        return p.endsWith("/index.html") || p.endsWith("\\index.html") || p.endsWith("/") || p === "";
+      }catch(e){
+        return false;
+      }
+    }
+
+    function sendToParent(payload){
+      try { parent.postMessage(payload, "*"); }
+      catch(e){ /* ignore */ }
+    }
+
+    function scrollParentTo(id){
+      // если мы НЕ на index.html — переходим туда с якорем
+      if(!onIndex()){
+        safeParentHrefSet("index.html#" + encodeURIComponent(id));
+        return;
+      }
+      // если на index — просто скроллим
+      sendToParent({ type: "scrollTo", id: id });
+    }
+
+    function goHome(){
+      if(onIndex()){
+        sendToParent({ type: "scrollTop" });
+      } else {
+        safeParentHrefSet("index.html");
+      }
+    }
+
+    // ===== wire clicks =====
+    document.addEventListener("click", function(e){
+      const a = e.target.closest("a");
+      if(!a) return;
+
+      // бренд
+      if(a.dataset.go === "home"){
+        e.preventDefault();
+        goHome();
+        return;
+      }
+
+      // секции
+      if(a.dataset.scroll){
+        e.preventDefault();
+        scrollParentTo(a.dataset.scroll);
+        return;
+      }
+
+      // страницы
+      if(a.dataset.page){
+        e.preventDefault();
+        safeParentHrefSet(a.dataset.page);
+        return;
+      }
+
+      // запасной вариант: если href="#..."
+      const href = a.getAttribute("href") || "";
+      if(href.startsWith("#")){
+        e.preventDefault();
+        const id = href.slice(1);
+        if(id) scrollParentTo(id);
+        return;
+      }
+    });
+  </script>
+</header>
