@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Обзорная экскурсия по Ярославлю</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0d1117;--muted:#667085;--line:#e6e7eb;--card:#ffffff;--ok:#16a34a;--bad:#dc2626;--accent:#3b82f6}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;color:var(--ink);background:linear-gradient(180deg,#f8fafc, color-mix(in oklab, var(--accent) 8%, white) 40%, #eef2f7)}
+.container{max-width:960px;margin:0 auto;padding:24px}
+.header{position:sticky;top:0;background:rgba(255,255,255,.7);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--line);z-index:10}
+.header .inner{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 0; padding-left:68px; padding-right:68px;}
+.btn-back{position:absolute;left:12px;top:50%;transform:translateY(-50%);border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:#fff;cursor:pointer;text-decoration:none;color:#0f172a;font-weight:700;line-height:1}
+.btn-back:hover{background:#f8fafc}
+.h1{font-size:18px;margin:0;font-weight:700;letter-spacing:.2px;text-align:center}
+@media(max-width:520px){
+  .header .inner{padding-left:60px;padding-right:16px;padding-top:10px;padding-bottom:10px}
+  .btn-back{left:8px;padding:6px 10px;font-size:14px}
+  .h1{font-size:16px}
+}
+main{display:flex;justify-content:center}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 48px -24px rgba(2,6,23,.15)}
+.card.pad{padding:26px}
+.center{text-align:center}
+.small{font-size:14px;color:var(--muted)}
+.h2{font-size:26px;margin:0 0 6px 0;font-weight:800;letter-spacing:.2px}
+.h3{font-size:18px;margin:0 0 8px 0;font-weight:700}
+.grid{display:grid;gap:18px;justify-items:stretch}
+@media(min-width:680px){.grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}}
+.btn, .btn:visited{display:inline-block;text-decoration:none;border:none;border-radius:14px;padding:14px 16px;font-weight:800;cursor:pointer;transition:transform .06s ease, box-shadow .2s ease, background .15s ease, color .15s ease}
+.btn:active{transform:scale(.98)}
+.btn.white{background:#ffffff;color:#0f172a}
+.btn.white:hover{background:#f1f5f9}
+.btn.neutral{background:#f1f5f9;color:#0f172a}
+.btn.block{width:100%}
+.btn.start{background:var(--accent); color:#fff; box-shadow:0 6px 16px -6px color-mix(in oklab, var(--accent) 60%, black);}
+.btn.start:hover{filter:brightness(.94) saturate(1.05)}
+.progress{height:10px;background:#eef2f7;border-radius:999px;overflow:hidden;margin:6px 0 10px 0}
+.progress>div{height:100%;background:var(--accent);width:0%}
+.meta{color:var(--muted);font-size:14px;margin:2px 0 10px 0;text-align:center}
+.q-title{font-size:22px;margin:8px 0 14px 0;text-align:center}
+.options{display:grid;gap:12px}
+.option{width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s ease, background .15s ease, box-shadow .15s ease}
+.option:hover{background:#f8fafc}
+.option.correct{border-color:#16a34a;background:#ecfdf5}
+.option.wrong{border-color:#dc2626;background:#fef2f2}
+.answer{margin-top:14px;background:color-mix(in oklab, var(--accent) 6%, #fff8ef);border:1px solid color-mix(in oklab, var(--accent) 35%, #fed7aa);border-radius:14px;padding:12px 14px;color:#1f2937;font-size:14px}
+.actions{display:flex;gap:12px;justify-content:center;margin-top:18px}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.22);color:#fff;font-weight:700;font-size:12px}
+.hero .wrap{width:100%;max-width:760px}
+.colored-card{color:#fff;border:none}
+.colored-card .small{color:rgba(255,255,255,.85)}
+.contact-section{margin:22px 0 6px 0; display:none;}
+.contact-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 24px -16px rgba(2,6,23,.15)}
+.brand-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn-brand{display:inline-flex;align-items:center;gap:8px;border:2px solid currentColor;border-radius:12px;padding:10px 14px;background:#fff;text-decoration:none;font-weight:800}
+.btn-brand:hover{color:#fff}
+.btn-brand.vk{color:#2787F5}
+.btn-brand.vk:hover{background:#2787F5; color: #fff}
+.btn-brand.avito{color:#22C55E}
+.btn-brand.avito:hover{background:#22C55E; color: #fff}
+.btn-brand.phone{color:#0f172a}
+.btn-brand.phone:hover{background:#0f172a; color: #fff}
+.qr-wrap{margin-top:14px;display:flex;justify-content:center}
+.qr-wrap img{width:clamp(200px, 42vw, 320px); height:auto; border-radius:14px; border:1px solid var(--line); background:#fff}
+</style>
+<style>:root{--accent:#2563eb;}</style>
+</head>
+<body>
+<header class="header">
+  <div class="inner container">
+    <a href="index.html" class="btn-back" aria-label="Назад">← Назад</a>
+    <h1 class="h1">Викторины по экскурсиям Ярославля</h1>
+  </div>
+</header>
+<main class="container hero">
+  <div class="wrap">
+<section>
+  <div class="card pad center colored-card" style="background:#2563eb;box-shadow:0 24px 48px -24px #2563eb66">
+    <span class="badge">Викторина</span>
+    <h2 class="h2" style="margin-top:6px;color:#fff">Обзорная экскурсия по Ярославлю</h2>
+    <p class="small" style="color:rgba(255,255,255,.9)">Богоявленская площадь, музей‑заповедник, Стрелка, Успенский собор, колокольня, Рублёный город, обелиск, Советская площадь, храм Ильи Пророка.</p>
+  </div>
+  <div style="height:16px"></div>
+
+  <div class="card pad">
+    <div id="start" class="center" style="padding:8px 0 2px 0">
+      <p class="small" style="margin:0 0 14px 0">В этой викторине 10 вопросов. Готовы начать?</p>
+      <button class="btn start" id="btnStart">Начать</button>
+      <div class="qr-wrap"><img src="images/1.png" alt="QR к маршруту"/></div>
+    </div>
+
+    <div id="quiz" style="display:none">
+      <div class="progress" aria-hidden="true"><div id="bar"></div></div>
+      <div class="meta" id="meta"></div>
+      <div class="q-title" id="qtext"></div>
+      <div id="options" class="options"></div>
+      <div id="answer" class="answer" style="display:none"></div>
+      <div class="actions" id="actions" style="display:none">
+        <button class="btn white" id="btnNext">Дальше</button>
+        <button class="btn neutral" id="btnRestart">Сначала</button>
+      </div>
+    </div>
+
+    <div id="result" class="center" style="display:none">
+      <div style="font-size:56px;font-weight:800" id="score"></div>
+      <p class="small">Ваш результат</p>
+      <div class="actions">
+        <button class="btn white" id="btnRetry">Пройти ещё раз</button>
+        <a class="btn neutral" href="index.html">На главную</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contactSection" class="contact-section">
+  <div class="contact-card center">
+    <div class="small" style="margin-bottom:10px">Связаться со мной</div>
+    <div class="brand-row">
+      <a class="btn-brand vk" href="https://vk.com/gid.yaroslavl?from=groups" target="_blank" rel="noopener">VK</a>
+      <a class="btn-brand avito" href="https://www.avito.ru/brands/i185661365?src=fs&page_from=from_favorite_sellers" target="_blank" rel="noopener">Авито</a>
+      <a class="btn-brand phone" href="tel:+79159957586">+7 (915) 995-75-86</a>
+    </div>
+  </div>
+</section>
+
+<script>
+const QUESTIONS_BASE = [{"text": "Что называют Стрелкой в Ярославле?", "options": ["Место слияния Волги и Которосли", "Самую высокую колокольню", "Остроконечный шпиль на башне", "Пешеходный мост"], "correct": 0, "expl": "Это мыс у слияния двух рек с парком и набережными."}, {"text": "Какой собор является кафедральным?", "options": ["Успенский собор", "Казанский собор", "Архангельский собор", "Преображенческий собор"], "correct": 0, "expl": ""}, {"text": "К какому комплексу относят Храм Ильи Пророка?", "options": ["Музей‑заповедник", "Советская площадь", "Речной вокзал", "Зоопарк"], "correct": 0, "expl": ""}, {"text": "Рублёный город — это…", "options": ["Древняя укреплённая часть города", "Современный деловой квартал", "Торговый центр", "Парк аттракционов"], "correct": 0, "expl": ""}, {"text": "Где стоит обелиск жертвам Белогвардейского восстания?", "options": ["Богоявленская площадь", "Советская площадь", "Театральная площадь", "У вокзала"], "correct": 0, "expl": ""}, {"text": "Что чаще всего имеют в виду под «музеем‑заповедником» в Ярославле?", "options": ["Спасо‑Преображенский монастырь", "Дом‑музей Некрасова", "Музей музыки и времени", "Художественный музей"], "correct": 0, "expl": ""}, {"text": "Чем известна Советская площадь?", "options": ["Административные здания и памятники", "Старинный кремль", "Промышленная зона", "Зоопарк"], "correct": 0, "expl": ""}, {"text": "Колокольня у Успенского собора сейчас —", "options": ["Смотровая площадка", "Подземный переход", "Жилой дом", "Школа"], "correct": 0, "expl": ""}, {"text": "От кого происходит название Ярославля по легенде?", "options": ["Князь Ярослав Мудрый", "Ярослав Осмомысл", "Ярослав Галицкий", "Ярослав Святополк"], "correct": 0, "expl": ""}, {"text": "Богоявленская площадь лучше всего описывается как…", "options": ["Историческое пространство с храмом и торговыми рядами", "Пустынное поле", "Аэродром", "Стадион"], "correct": 0, "expl": ""}];
+let Q = []; let idx = 0, score = 0, selected = null;
+const elStart = document.getElementById('start');
+const elQuiz = document.getElementById('quiz');
+const elMeta = document.getElementById('meta');
+const elBar = document.getElementById('bar');
+const elQ = document.getElementById('qtext');
+const elOpts = document.getElementById('options');
+const elAns = document.getElementById('answer');
+const elActions = document.getElementById('actions');
+const elResult = document.getElementById('result');
+const elScore = document.getElementById('score');
+const elContact = document.getElementById('contactSection');
+
+function shuffleArray(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]] = [arr[j],arr[i]];
+  }
+  return arr;
+}
+function start(){
+  elContact.style.display='none';
+  Q = QUESTIONS_BASE.map(q => {
+    const opts = q.options.map((t,i)=>({t, isCorrect:i===q.correct}));
+    shuffleArray(opts);
+    const options = opts.map(o=>o.t);
+    const correct = opts.findIndex(o=>o.isCorrect);
+    return {text:q.text, options, correct, expl:q.expl||""};
+  });
+  idx=0; score=0; selected=null;
+  elStart.style.display='none'; elResult.style.display='none'; elQuiz.style.display='block';
+  render();
+}
+function render(){
+  const total = Q.length;
+  elMeta.textContent = 'Вопрос ' + (idx+1) + ' из ' + total;
+  elBar.style.width = Math.round(idx/total*100) + '%';
+  const q = Q[idx];
+  elQ.textContent = q.text;
+  elOpts.innerHTML=''; elAns.style.display='none'; elActions.style.display='none'; selected=null;
+  q.options.forEach((opt,i)=>{
+    const btn = document.createElement('button'); btn.className='option'; btn.textContent=opt;
+    btn.onmouseenter=()=>{ btn.style.background='color-mix(in oklab, var(--accent) 8%, white)'; };
+    btn.onmouseleave=()=>{ btn.style.background='#fff'; };
+    btn.onclick=()=>choose(i); elOpts.appendChild(btn);
+  });
+}
+function choose(i){
+  if(selected!==null) return; selected=i;
+  const q=Q[idx]; const buttons=[...elOpts.querySelectorAll('button')];
+  buttons.forEach((b,j)=>{ if(j===q.correct) b.classList.add('correct'); if(j===i&&j!==q.correct) b.classList.add('wrong'); b.disabled=true; });
+  if(i===q.correct) score++; else { elAns.innerHTML='Правильный ответ: <b>'+q.options[q.correct]+'</b>'+ (q.expl?'<div class="small" style="margin-top:6px">'+q.expl+'</div>':''); elAns.style.display='block'; }
+  elActions.style.display='flex';
+}
+function next(){ if(idx+1<Q.length){ idx++; render(); } else { finish(); } }
+function finish(){ elQuiz.style.display='none'; elResult.style.display='block'; elScore.textContent = score+' / '+Q.length; elContact.style.display='block'; }
+document.getElementById('btnStart').onclick=start;
+document.getElementById('btnNext').onclick=next;
+document.getElementById('btnRestart').onclick=start;
+document.getElementById('btnRetry').onclick=start;
+</script>
+</div>
+</main>
+</body></html>
