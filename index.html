@@ -5,131 +5,38 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="styleHeader.css">
-  l
-
-
-
   <title>Экскурсии по Ярославлю</title>
-
-  
-   
 </head>
 
 <body>
 <!-- Header -->
 <header class="site-header">
- 
- 
-
   <div class="header-inner">
-    <!-- ВАЖНО: бренд не должен быть обычной ссылкой в iframe -->
-    <a href="#" class="brand" data-go="home">
+   
+    <a href="index.html" class="brand">
       <div class="brand-logo">Я</div>
       <div class="brand-text">
         <div class="brand-title">Экскурсии по Ярославлю</div>
         <div class="brand-sub">истории, маршруты, кино и купечество</div>
       </div>
     </a>
-
-    <!-- ВАЖНО: секции делаем #... (будет скроллить родитель) -->
+    
+    <!-- ОСНОВНАЯ НАВИГАЦИЯ -->
     <nav class="nav">
-      <a href="#tours" data-scroll="tours">Экскурсии</a>
-      <a href="news.html" data-page="news.html">Новости</a>
-      <a href="#about" data-scroll="about">О гиде</a>
-      <a href="#contact" data-scroll="contact">Контакты</a>
-    </nav>
+  <a href="index.html#tours">Экскурсии</a>
+  <a href="news.html">Новости</a>
+  <a href="index.html#about">О гиде</a>
+  <a href="index.html#contact">Контакты</a>
+  <a href="Coin3D/coin.html">Монета 3D</a>
+  <a href="Quizes/index.html">Квизы</a>
+</nav>
 
-       <nav class="nav">
-      <a href="./Coin3D/coin.html" data-scroll="./Coin3D/coin.html">Монета3D</a>
-      <a href="./Quizes/index.html" data-page="./Quizes/index.html">Квизы</a>
-
-    </nav>
-
-    <!-- кнопка: либо скролл к контактам, либо открыть модалку -->
-    <a href="#contact" class="cta" data-scroll="contact">Записаться</a>
+    <a href="index.html#contact" class="cta">Записаться</a>
   </div>
-
-  <script>
-    // ===== helpers =====
-    function safeParentHrefSet(url){
-      try { parent.location.href = url; }
-      catch(e){ window.top.location.href = url; }
-    }
-
-    function onIndex(){
-      try{
-        const p = parent.location.pathname || "";
-        return p.endsWith("/index.html") || p.endsWith("\\index.html") || p.endsWith("/") || p === "";
-      }catch(e){
-        return false;
-      }
-    }
-
-    function sendToParent(payload){
-      try { parent.postMessage(payload, "*"); }
-      catch(e){ /* ignore */ }
-    }
-
-    function scrollParentTo(id){
-      // если мы НЕ на index.html — переходим туда с якорем
-      if(!onIndex()){
-        safeParentHrefSet("index.html#" + encodeURIComponent(id));
-        return;
-      }
-      // если на index — просто скроллим
-      sendToParent({ type: "scrollTo", id: id });
-    }
-
-    function goHome(){
-      if(onIndex()){
-        sendToParent({ type: "scrollTop" });
-      } else {
-        safeParentHrefSet("index.html");
-      }
-    }
-
-    // ===== wire clicks =====
-    document.addEventListener("click", function(e){
-      const a = e.target.closest("a");
-      if(!a) return;
-
-      // бренд
-      if(a.dataset.go === "home"){
-        e.preventDefault();
-        goHome();
-        return;
-      }
-
-      // секции
-      if(a.dataset.scroll){
-        e.preventDefault();
-        scrollParentTo(a.dataset.scroll);
-        return;
-      }
-
-      // страницы
-      if(a.dataset.page){
-        e.preventDefault();
-        safeParentHrefSet(a.dataset.page);
-        return;
-      }
-
-      // запасной вариант: если href="#..."
-      const href = a.getAttribute("href") || "";
-      if(href.startsWith("#")){
-        e.preventDefault();
-        const id = href.slice(1);
-        if(id) scrollParentTo(id);
-        return;
-      }
-    });
-  </script>
 </header>
-
 <!-- Header -->
 
 
-  <!-- HERO -->
   <header class="hero" id="top">
     <div class="container">
       <div class="hero-box">
@@ -137,7 +44,7 @@
         <div class="hero-divider"></div>
         <div class="hero-sub">Увлекательные экскурсии<br>по древнему городу!</div>
 
-        <!-- Кнопка открывает попап записи -->
+
         <button class="btn js-open-booking" data-from="Главная" type="button">
           Записаться на экскурсию
         </button>
@@ -905,6 +812,83 @@ let currentExcursionName = "Не выбрано";
     });
   })();
 </script>
+
+<!-- Header -->
+  <script>
+    // ===== helpers =====
+    function safeParentHrefSet(url){
+      try { parent.location.href = url; }
+      catch(e){ window.top.location.href = url; }
+    }
+
+    function onIndex(){
+      try{
+        const p = parent.location.pathname || "";
+        return p.endsWith("/index.html") || p.endsWith("\\index.html") || p.endsWith("/") || p === "";
+      }catch(e){
+        return false;
+      }
+    }
+
+    function sendToParent(payload){
+      try { parent.postMessage(payload, "*"); }
+      catch(e){ /* ignore */ }
+    }
+
+    function scrollParentTo(id){
+      // если мы НЕ на index.html — переходим туда с якорем
+      if(!onIndex()){
+        safeParentHrefSet("index.html#" + encodeURIComponent(id));
+        return;
+      }
+      // если на index — просто скроллим
+      sendToParent({ type: "scrollTo", id: id });
+    }
+
+    function goHome(){
+      if(onIndex()){
+        sendToParent({ type: "scrollTop" });
+      } else {
+        safeParentHrefSet("index.html");
+      }
+    }
+
+    // ===== wire clicks =====
+    document.addEventListener("click", function(e){
+      const a = e.target.closest("a");
+      if(!a) return;
+
+      // бренд
+      if(a.dataset.go === "home"){
+        e.preventDefault();
+        goHome();
+        return;
+      }
+
+      // секции
+      if(a.dataset.scroll){
+        e.preventDefault();
+        scrollParentTo(a.dataset.scroll);
+        return;
+      }
+
+      // страницы
+      if(a.dataset.page){
+        e.preventDefault();
+        safeParentHrefSet(a.dataset.page);
+        return;
+      }
+
+      // запасной вариант: если href="#..."
+      const href = a.getAttribute("href") || "";
+      if(href.startsWith("#")){
+        e.preventDefault();
+        const id = href.slice(1);
+        if(id) scrollParentTo(id);
+        return;
+      }
+    });
+  </script>
 
 
 </body>
